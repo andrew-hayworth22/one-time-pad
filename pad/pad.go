@@ -12,36 +12,36 @@ func New(key string) *Pad {
 	}
 }
 
-func (p Pad) Encrypt(str string) (string, error) {
-	if len(str) > len(p.key) {
+func (p Pad) Encrypt(plaintext string) (string, error) {
+	if len(plaintext) > len(p.key) {
 		return "", errors.New("the text length must be shorter than or the same length as the pad")
 	}
 
-	strBytes := []byte(str)
-	resultBytes := make([]byte, len(strBytes))
+	plaintextBytes := []byte(plaintext)
+	ciphertextBytes := make([]byte, len(plaintextBytes))
 
-	for idx, b := range strBytes {
-		resultBytes[idx] = (b + p.key[idx]) % 255
+	for idx, b := range plaintextBytes {
+		ciphertextBytes[idx] = (b + p.key[idx]) % 128
 	}
 
-	result := string(resultBytes)
+	ciphertext := string(ciphertextBytes)
 
-	return result, nil
+	return ciphertext, nil
 }
 
-func (p Pad) Decrypt(str string) (string, error) {
-	if len(str) > len(p.key) {
+func (p Pad) Decrypt(ciphertext string) (string, error) {
+	if len(ciphertext) > len(p.key) {
 		return "", errors.New("the text length must be shorter than or the same length as the pad")
 	}
 
-	strBytes := []byte(str)
-	resultBytes := make([]byte, len(strBytes))
+	ciphertextBytes := []byte(ciphertext)
+	plaintextBytes := make([]byte, len(ciphertextBytes))
 
-	for idx, b := range strBytes {
-		resultBytes[idx] = (b - p.key[idx]) % 255
+	for idx, b := range ciphertextBytes {
+		plaintextBytes[idx] = (b - p.key[idx]) % 128
 	}
 
-	result := string(resultBytes)
+	plaintext := string(plaintextBytes)
 
-	return result, nil
+	return plaintext, nil
 }

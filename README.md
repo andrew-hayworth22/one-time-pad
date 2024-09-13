@@ -4,13 +4,11 @@ A demonstration of the one-time pad encryption technique.
 
 ## Running the program
 
-Install the executable for your operating system from the bin directory and execute it from the command line.
+Install the go compiler, pull this repository and run one of the two commands:
 
-If your operating system is not shown, pull the codebase.
-
-After ensuring Go is installed, run:
-
-```go build .```
+```go build . && ./one-time-pad```
+or
+```go run .```
 
 ## Running tests
 
